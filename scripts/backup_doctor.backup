@@ -1,0 +1,387 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.1
+-- Dumped by pg_dump version 9.1.1
+-- Started on 2011-11-03 18:33:25 BRT
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 1929 (class 1262 OID 16393)
+-- Name: doctor; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE doctor WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'pt_BR.UTF-8' LC_CTYPE = 'pt_BR.UTF-8';
+
+
+ALTER DATABASE doctor OWNER TO postgres;
+
+\connect doctor
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 168 (class 3079 OID 11684)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1932 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 162 (class 1259 OID 16402)
+-- Dependencies: 1908 5
+-- Name: User; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "User" (
+    id integer NOT NULL,
+    name text NOT NULL,
+    email text NOT NULL,
+    password text NOT NULL,
+    crm text,
+    type smallint DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE public."User" OWNER TO postgres;
+
+--
+-- TOC entry 161 (class 1259 OID 16400)
+-- Dependencies: 5 162
+-- Name: User_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "User_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."User_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 1933 (class 0 OID 0)
+-- Dependencies: 161
+-- Name: User_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "User_id_seq" OWNED BY "User".id;
+
+
+--
+-- TOC entry 1934 (class 0 OID 0)
+-- Dependencies: 161
+-- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"User_id_seq"', 1, false);
+
+
+--
+-- TOC entry 166 (class 1259 OID 16427)
+-- Dependencies: 5
+-- Name: meeting; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE meeting (
+    id integer NOT NULL,
+    notes text,
+    "scheduledDate" date NOT NULL,
+    "attendedDate" date,
+    doctor_id integer NOT NULL,
+    client_id integer NOT NULL,
+    service_id integer NOT NULL
+);
+
+
+ALTER TABLE public.meeting OWNER TO postgres;
+
+--
+-- TOC entry 165 (class 1259 OID 16425)
+-- Dependencies: 166 5
+-- Name: meeting_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE meeting_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.meeting_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 1935 (class 0 OID 0)
+-- Dependencies: 165
+-- Name: meeting_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE meeting_id_seq OWNED BY meeting.id;
+
+
+--
+-- TOC entry 1936 (class 0 OID 0)
+-- Dependencies: 165
+-- Name: meeting_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('meeting_id_seq', 1, false);
+
+
+--
+-- TOC entry 164 (class 1259 OID 16414)
+-- Dependencies: 5
+-- Name: service; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE service (
+    id integer NOT NULL,
+    name text NOT NULL
+);
+
+
+ALTER TABLE public.service OWNER TO postgres;
+
+--
+-- TOC entry 167 (class 1259 OID 16446)
+-- Dependencies: 5
+-- Name: service_doctor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE service_doctor (
+    doctor_id integer NOT NULL,
+    service_id integer NOT NULL
+);
+
+
+ALTER TABLE public.service_doctor OWNER TO postgres;
+
+--
+-- TOC entry 163 (class 1259 OID 16412)
+-- Dependencies: 5 164
+-- Name: service_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE service_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.service_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 1937 (class 0 OID 0)
+-- Dependencies: 163
+-- Name: service_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE service_id_seq OWNED BY service.id;
+
+
+--
+-- TOC entry 1938 (class 0 OID 0)
+-- Dependencies: 163
+-- Name: service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('service_id_seq', 1, false);
+
+
+--
+-- TOC entry 1907 (class 2604 OID 16405)
+-- Dependencies: 161 162 162
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE "User" ALTER COLUMN id SET DEFAULT nextval('"User_id_seq"'::regclass);
+
+
+--
+-- TOC entry 1910 (class 2604 OID 16430)
+-- Dependencies: 166 165 166
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE meeting ALTER COLUMN id SET DEFAULT nextval('meeting_id_seq'::regclass);
+
+
+--
+-- TOC entry 1909 (class 2604 OID 16417)
+-- Dependencies: 163 164 164
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE service ALTER COLUMN id SET DEFAULT nextval('service_id_seq'::regclass);
+
+
+--
+-- TOC entry 1923 (class 0 OID 16402)
+-- Dependencies: 162
+-- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "User" (id, name, email, password, crm, type) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1925 (class 0 OID 16427)
+-- Dependencies: 166
+-- Data for Name: meeting; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY meeting (id, notes, "scheduledDate", "attendedDate", doctor_id, client_id, service_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1924 (class 0 OID 16414)
+-- Dependencies: 164
+-- Data for Name: service; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY service (id, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1926 (class 0 OID 16446)
+-- Dependencies: 167
+-- Data for Name: service_doctor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY service_doctor (doctor_id, service_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1912 (class 2606 OID 16411)
+-- Dependencies: 162 162
+-- Name: id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "User"
+    ADD CONSTRAINT id PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1916 (class 2606 OID 16435)
+-- Dependencies: 166 166
+-- Name: pk_meeting; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY meeting
+    ADD CONSTRAINT pk_meeting PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1914 (class 2606 OID 16424)
+-- Dependencies: 164 164
+-- Name: pk_service; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY service
+    ADD CONSTRAINT pk_service PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1918 (class 2606 OID 16450)
+-- Dependencies: 167 167 167
+-- Name: service_doctor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY service_doctor
+    ADD CONSTRAINT service_doctor_pkey PRIMARY KEY (doctor_id, service_id);
+
+
+--
+-- TOC entry 1919 (class 2606 OID 16436)
+-- Dependencies: 162 1911 166
+-- Name: fk_client; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY meeting
+    ADD CONSTRAINT fk_client FOREIGN KEY (client_id) REFERENCES "User"(id);
+
+
+--
+-- TOC entry 1921 (class 2606 OID 16451)
+-- Dependencies: 1911 162 167
+-- Name: fk_doctor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY service_doctor
+    ADD CONSTRAINT fk_doctor FOREIGN KEY (doctor_id) REFERENCES "User"(id);
+
+
+--
+-- TOC entry 1922 (class 2606 OID 16456)
+-- Dependencies: 164 167 1913
+-- Name: fk_service; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY service_doctor
+    ADD CONSTRAINT fk_service FOREIGN KEY (service_id) REFERENCES service(id);
+
+
+--
+-- TOC entry 1920 (class 2606 OID 16461)
+-- Dependencies: 167 166 166 167 1917
+-- Name: fk_service_doctor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY meeting
+    ADD CONSTRAINT fk_service_doctor FOREIGN KEY (service_id, doctor_id) REFERENCES service_doctor(service_id, doctor_id);
+
+
+--
+-- TOC entry 1931 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2011-11-03 18:33:26 BRT
+
+--
+-- PostgreSQL database dump complete
+--
+

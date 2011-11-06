@@ -1,0 +1,6 @@
+CREATE TABLE service
+(
+  id serial NOT NULL,
+  "name" text NOT NULL,
+  CONSTRAINT pk_service PRIMARY KEY (id)
+);

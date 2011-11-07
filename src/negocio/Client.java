@@ -7,10 +7,17 @@
 
 package negocio;
 
+    
+    
+    
+
 /**
  *
  * @author aluno
  */
 public class Client extends User {
+ 
+    
 
-}
+    }
+

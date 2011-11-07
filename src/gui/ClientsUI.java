@@ -13,6 +13,13 @@
 
 package gui;
 
+import exception.AcessoRepositorioException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import negocio.Client;
+import negocio.Fachada;
+
 /**
  *
  * @author aluno
@@ -45,8 +52,18 @@ public class ClientsUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nome:");
 
@@ -101,6 +118,44 @@ public class ClientsUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        
+        this.dispose();
+       
+        
+    }//GEN-LAST:event_btSairActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+       if(this.tfName != null && this.tfEmail != null && this.pfPassword != null){ 
+       
+        try {
+            Client c = new Client();
+            c.setName(this.tfName.getText());
+            c.setEmail(this.tfEmail.getText());
+            c.setPassword(this.pfPassword.getPassword());
+         
+            Fachada.getFachada().insert(c);
+            
+        } catch (AcessoRepositorioException ex) {
+            Logger.getLogger(ClientsUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.dispose();
+        
+       
+        
+       }
+       
+       else{
+        JOptionPane.showMessageDialog(rootPane, "Falta preencher algum dos campos!");
+       }
+       
+       
+       
+        
+        
+    }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
     * @param args the command line arguments

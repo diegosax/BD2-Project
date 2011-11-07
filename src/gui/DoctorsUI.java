@@ -18,7 +18,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import negocio.Doctor;
 import negocio.Fachada;
 import negocio.Service;
 
@@ -60,14 +62,32 @@ public class DoctorsUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listAllServices = new javax.swing.JList();
         btRemoveService = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("CRM:");
+
+        tfName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNameActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nome:");
 
@@ -89,6 +109,17 @@ public class DoctorsUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listAllServices);
 
         btRemoveService.setText("<");
+        btRemoveService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoveServiceActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        jLabel5.setText("Serviços Disponíveis:");
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        jLabel6.setText("Serviços Deste Médico:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -96,14 +127,21 @@ public class DoctorsUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btAddService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btRemoveService, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btAddService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btRemoveService, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(54, 54, 54))))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btAddService, btRemoveService});
@@ -111,14 +149,17 @@ public class DoctorsUI extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
                         .addComponent(btAddService)
                         .addGap(18, 18, 18)
-                        .addComponent(btRemoveService))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btRemoveService)))
                 .addContainerGap())
         );
 
@@ -176,7 +217,7 @@ public class DoctorsUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfCrm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -191,6 +232,54 @@ public class DoctorsUI extends javax.swing.JFrame {
     private void btAddServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddServiceActionPerformed
         this.addService();
     }//GEN-LAST:event_btAddServiceActionPerformed
+
+    private void btRemoveServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveServiceActionPerformed
+        this.removeService();
+    }//GEN-LAST:event_btRemoveServiceActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+       
+        this.dispose();
+        
+        
+        
+    }//GEN-LAST:event_btSairActionPerformed
+
+    private void tfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNameActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        
+       if(this.tfName != null && this.tfEmail != null && this.tfCrm != null && this.pfPassword != null){ 
+        try {
+            Doctor d = new Doctor();
+            d.setCrm(this.tfCrm.getText());
+            d.setName(this.tfName.getText());
+            d.setEmail(this.tfEmail.getText());
+            d.setPassword(this.pfPassword.getPassword());
+            d.setServices(selectedServices);
+           
+            
+            
+            Fachada.getFachada().insert(d);
+        
+        } catch (AcessoRepositorioException ex) {
+            Logger.getLogger(DoctorsUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.dispose();
+        
+        
+       }
+       
+       else{
+        JOptionPane.showMessageDialog(rootPane, "Falta preencher algum dos campos!");
+       
+       }
+        
+        
+    }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
     * @param args the command line arguments
@@ -212,6 +301,8 @@ public class DoctorsUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -254,6 +345,22 @@ public class DoctorsUI extends javax.swing.JFrame {
             listSelected.addElement(selectedServices.get(i));
         }
         
+    }
+    
+    private void removeService() {
+        int row[] = listAllServices.getSelectedIndices();
+        DefaultListModel listAll = (DefaultListModel) listAllServices.getModel();
+        DefaultListModel listSelected = (DefaultListModel) listSelectedServices.getModel();
+        
+        for(int i = 0; i < row.length; i++){
+           listSelected.remove(i);
+           
+           allServices.add(selectedServices.get(i));
+           selectedServices.remove(i);
+           
+           listAll.addElement(allServices.get(i));
+           
+        }   
     }
 
 }

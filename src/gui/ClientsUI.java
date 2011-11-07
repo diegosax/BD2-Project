@@ -1,6 +1,8 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Grupo: Miguel Amaral
+ *        Ethan Rafael
+ *        Diego Henrique
+ *        Davyson Costa
  */
 
 /*
@@ -37,7 +39,7 @@ public class ClientsUI extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        panelUser = new negocio.panelUser();
+        panelUser = new gui.panelUser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,7 +136,7 @@ public class ClientsUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private negocio.panelUser panelUser;
+    private gui.panelUser panelUser;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -118,7 +118,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="negocio.panelUser" name="panelUser1">
+    <Component class="gui.panelUser" name="panelUser1">
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>

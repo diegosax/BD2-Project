@@ -1,6 +1,8 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Grupo: Miguel Amaral
+ *        Ethan Rafael
+ *        Diego Henrique
+ *        Davyson Costa
  */
 
 /*
@@ -33,7 +35,7 @@ public class DoctorsUI extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        panelUser1 = new negocio.panelUser();
+        panelUser1 = new gui.panelUser();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -146,7 +148,7 @@ public class DoctorsUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private negocio.panelUser panelUser1;
+    private gui.panelUser panelUser1;
     // End of variables declaration//GEN-END:variables
 
 }

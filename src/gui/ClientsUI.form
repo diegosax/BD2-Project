@@ -124,7 +124,7 @@
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
     </Component>
-    <Component class="negocio.panelUser" name="panelUser">
+    <Component class="gui.panelUser" name="panelUser">
     </Component>
   </SubComponents>
 </Form>

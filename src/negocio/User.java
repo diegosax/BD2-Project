@@ -9,7 +9,7 @@ package negocio;
 
 /**
  *
- * @author aluno
+ * @author miguel
  */
 public class User {
 

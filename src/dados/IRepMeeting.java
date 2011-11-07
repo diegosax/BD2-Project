@@ -7,7 +7,6 @@
 package dados;
 
 import exception.AcessoRepositorioException;
-import java.util.List;
 import negocio.Meeting;
 
 /**
@@ -18,6 +17,7 @@ public interface IRepMeeting {
     
     public void insert(Meeting meeting) throws AcessoRepositorioException;
     
+    /*
     public void remove(Meeting meeting) throws AcessoRepositorioException;
     
     public void update(Meeting meeting) throws AcessoRepositorioException;
@@ -25,5 +25,5 @@ public interface IRepMeeting {
     public Meeting get(int id) throws AcessoRepositorioException;
     
     public List<Meeting>getAll() throws AcessoRepositorioException;
-    
+    */
 }

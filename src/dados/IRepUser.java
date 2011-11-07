@@ -7,7 +7,6 @@
 package dados;
 
 import exception.AcessoRepositorioException;
-import java.util.List;
 import negocio.User;
 
 /**
@@ -18,6 +17,7 @@ public interface IRepUser {
     
     public void insert(User user) throws AcessoRepositorioException;
     
+    /*
     public void remove(User user) throws AcessoRepositorioException;
     
     public void update(User user) throws AcessoRepositorioException;
@@ -25,5 +25,5 @@ public interface IRepUser {
     public User get(int id) throws AcessoRepositorioException;
     
     public List<User>getAll() throws AcessoRepositorioException;
-    
+    */
 }

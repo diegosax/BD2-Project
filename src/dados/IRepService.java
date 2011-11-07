@@ -18,12 +18,14 @@ public interface IRepService {
     
     public void insert(Service service) throws AcessoRepositorioException;
     
+    /*
     public void remove(Service service) throws AcessoRepositorioException;
     
     public void update(Service service) throws AcessoRepositorioException;
     
     public Service get(int id) throws AcessoRepositorioException;
     
+    *
+    */
     public List<Service>getAll() throws AcessoRepositorioException;
-    
 }

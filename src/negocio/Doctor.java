@@ -16,7 +16,7 @@ import java.util.List;
 public class Doctor extends User {
 
     private String crm;
-    private List<Service> servico;
+    private List<Service> services;
 
     public String getCrm() {
         return crm;
@@ -26,12 +26,12 @@ public class Doctor extends User {
         this.crm = crm;
     }
 
-    public List<Service> getServico() {
-        return servico;
+    public List<Service> getServices() {
+        return services;
     }
 
-    public void setServico(List<Service> servico) {
-        this.servico = servico;
+    public void setServices(List<Service> services) {
+        this.services = services;
     }
 
 }

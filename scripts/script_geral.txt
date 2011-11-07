@@ -9,10 +9,10 @@ CREATE DATABASE doctor
 CREATE TABLE "User"
 (
   id serial NOT NULL,
-  "name" text NOT NULL,
-  email text NOT NULL,
-  "password" text NOT NULL,
-  crm text,
+  "name" character varying(60) NOT NULL,
+  email character varying(50) NOT NULL,
+  "password" character varying(20) NOT NULL,
+  crm character varying(15),
   "type" smallint NOT NULL DEFAULT 0,
   CONSTRAINT id PRIMARY KEY (id)
 );
@@ -20,7 +20,7 @@ CREATE TABLE "User"
 CREATE TABLE service
 (
   id serial NOT NULL,
-  "name" text NOT NULL,
+  "name" character varying(20) NOT NULL,
   CONSTRAINT pk_service PRIMARY KEY (id)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE service_doctor
 CREATE TABLE meeting
 (
   id serial NOT NULL,
-  notes text,
+  notes character varying(100),
   "scheduledDate" date NOT NULL,
   "attendedDate" date,
   doctor_id integer NOT NULL,

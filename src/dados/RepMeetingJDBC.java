@@ -16,7 +16,7 @@ import util.JDBCUtil;
  */
 public class RepMeetingJDBC implements IRepMeeting {
 
-    private static final String insert = "INSERT INTO meeting (notes, "
+    private static final String insert = "INSERT INTO meetings (notes, "
             + "scheduledDate, attendedDate, "
             + "doctor_id, client_id, service_id) "
             + "VALUES( ?, ?, ?, ?, ?, ?)";

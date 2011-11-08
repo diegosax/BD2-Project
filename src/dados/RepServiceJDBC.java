@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import negocio.Doctor;
 import negocio.Service;
 import util.JDBCUtil;
 
@@ -19,8 +20,8 @@ import util.JDBCUtil;
  */
 public class RepServiceJDBC implements IRepService {
 
-    private static final String insert = "INSERT INTO service(name) VALUES (?)";
-    private static final String getAll = "SELECT * FROM service ORDER BY lower(name)";
+    private static final String insert = "INSERT INTO services(name) VALUES (?)";
+    private static final String getAll = "SELECT * FROM services ORDER BY lower(name)";
 
     public void insert(Service service) throws AcessoRepositorioException {
         PreparedStatement stmt = null;
@@ -72,5 +73,9 @@ public class RepServiceJDBC implements IRepService {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public List<Service> get(Doctor d) throws AcessoRepositorioException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

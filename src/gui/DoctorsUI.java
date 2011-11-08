@@ -10,6 +10,7 @@
 package gui;
 
 import exception.AcessoRepositorioException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -269,10 +270,15 @@ public class DoctorsUI extends javax.swing.JFrame {
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfName;
     // End of variables declaration//GEN-END:variables
+    
     private List<Service> allServices;
     private List<Service> selectedServices;
 
     private void initComponets2() {
+
+        if (selectedServices == null)
+            this.selectedServices = new ArrayList<Service>();
+        
         try {
             this.allServices = Fachada.getFachada().getAllServices();
             DefaultListModel model = (DefaultListModel) listAllServices.getModel();
@@ -293,28 +299,27 @@ public class DoctorsUI extends javax.swing.JFrame {
         DefaultListModel listSelected = (DefaultListModel) listSelectedServices.getModel();
 
         for (int i = 0; i < row.length; i++) {
+
+            selectedServices.add(allServices.get(row[i] - i));
+            listSelected.addElement(allServices.get(row[i] - i).getName());
+            
+            allServices.remove(row[i] - i);
             listAll.remove(row[i] - i);
-
-            selectedServices.add(allServices.get(i));
-            allServices.remove(i);
-
-            listSelected.addElement(selectedServices.get(i));
         }
-
     }
 
     private void removeService() {
-        int row[] = listAllServices.getSelectedIndices();
+        int row[] = listSelectedServices.getSelectedIndices();
         DefaultListModel listAll = (DefaultListModel) listAllServices.getModel();
         DefaultListModel listSelected = (DefaultListModel) listSelectedServices.getModel();
 
         for (int i = 0; i < row.length; i++) {
-            listSelected.remove(i);
 
-            allServices.add(selectedServices.get(i));
-            selectedServices.remove(i);
-
-            listAll.addElement(allServices.get(i));
+            allServices.add(selectedServices.get(row[i] - i));
+            listAll.addElement(selectedServices.get(row[i] - i).getName());
+            
+            selectedServices.remove(row[i] - i);
+            listSelected.remove(row[i] - i);
 
         }
     }

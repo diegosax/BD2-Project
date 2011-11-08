@@ -6,7 +6,7 @@ CREATE DATABASE doctor
        LC_CTYPE = 'pt_BR.UTF-8'
        CONNECTION LIMIT = -1;
 
-CREATE TABLE "User"
+CREATE TABLE users
 (
   id serial NOT NULL,
   "name" character varying(60) NOT NULL,
@@ -17,27 +17,27 @@ CREATE TABLE "User"
   CONSTRAINT id PRIMARY KEY (id)
 );
 
-CREATE TABLE service
+CREATE TABLE services
 (
   id serial NOT NULL,
   "name" character varying(20) NOT NULL,
   CONSTRAINT pk_service PRIMARY KEY (id)
 );
 
-CREATE TABLE service_doctor
+CREATE TABLE services_doctor
 (
   doctor_id integer NOT NULL,
   service_id integer NOT NULL,
-  CONSTRAINT service_doctor_pkey PRIMARY KEY (doctor_id, service_id),
+  CONSTRAINT services_doctor_pkey PRIMARY KEY (doctor_id, service_id),
   CONSTRAINT fk_doctor FOREIGN KEY (doctor_id)
-      REFERENCES "User" (id) MATCH SIMPLE
+      REFERENCES users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fk_service FOREIGN KEY (service_id)
-      REFERENCES service (id) MATCH SIMPLE
+      REFERENCES services (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-CREATE TABLE meeting
+CREATE TABLE meetings
 (
   id serial NOT NULL,
   notes character varying(100),
@@ -48,9 +48,9 @@ CREATE TABLE meeting
   service_id integer NOT NULL,
   CONSTRAINT pk_meeting PRIMARY KEY (id),
   CONSTRAINT fk_client FOREIGN KEY (client_id)
-      REFERENCES "User" (id) MATCH SIMPLE
+      REFERENCES users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fk_service_doctor FOREIGN KEY (service_id, doctor_id)
-      REFERENCES service_doctor (service_id, doctor_id) MATCH SIMPLE
+      REFERENCES services_doctor (service_id, doctor_id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 );

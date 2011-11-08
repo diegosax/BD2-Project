@@ -90,9 +90,9 @@ public class ClientsUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pfPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -153,9 +153,9 @@ public class ClientsUI extends javax.swing.JFrame {
     }
 
     private void salvar() {
-        if (this.tfName.getText().trim().equals("") &&
-                this.tfEmail.getText().trim().equals("") &&
-                this.pfPassword.getPassword().length == 0) {
+        if (!this.tfName.getText().trim().equals("") &&
+                !this.tfEmail.getText().trim().equals("") &&
+                this.pfPassword.getPassword().length != 0) {
 
             try {
                 Client c = new Client();

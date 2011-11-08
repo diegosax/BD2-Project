@@ -8,6 +8,7 @@ package dados;
 
 import exception.AcessoRepositorioException;
 import java.util.List;
+import negocio.Doctor;
 import negocio.Service;
 
 /**
@@ -28,4 +29,7 @@ public interface IRepService {
     *
     */
     public List<Service>getAll() throws AcessoRepositorioException;
+    
+    public List<Service>get(Doctor d) throws AcessoRepositorioException;
+    
 }

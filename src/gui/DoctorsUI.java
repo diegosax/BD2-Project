@@ -95,8 +95,10 @@ public class DoctorsUI extends javax.swing.JFrame {
             }
         });
 
+        listSelectedServices.setModel(new DefaultListModel());
         jScrollPane2.setViewportView(listSelectedServices);
 
+        listAllServices.setModel(new DefaultListModel());
         jScrollPane1.setViewportView(listAllServices);
 
         btRemoveService.setText("<");
@@ -282,6 +284,7 @@ public class DoctorsUI extends javax.swing.JFrame {
         } catch (AcessoRepositorioException ex) {
             ex.printStackTrace();
         }
+        this.setLocationByPlatform(true);
     }
 
     private void addService() {
@@ -317,13 +320,13 @@ public class DoctorsUI extends javax.swing.JFrame {
     }
 
     private void sair() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        this.dispose();
     }
 
     private void salvar() {
-        if (this.tfName.getText().trim().equals("") &&
-                this.tfEmail.getText().trim().equals("") &&
-                this.pfPassword.getPassword().length == 0) {
+        if (!this.tfName.getText().trim().equals("") &&
+                !this.tfEmail.getText().trim().equals("") &&
+                this.pfPassword.getPassword().length != 0) {
             
             try {
                 Doctor d = new Doctor();

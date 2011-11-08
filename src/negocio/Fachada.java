@@ -23,7 +23,8 @@ public class Fachada {
     private UserController users;
     
     private Fachada(){
-        // TODO inicializar atributos
+        //JDBCUtil.abreConn();
+        
         IRepUser repUsers = new RepUserJDBC();
         IRepMeeting repMeetings = new RepMeetingJDBC();
         IRepService repServices = new RepServiceJDBC();

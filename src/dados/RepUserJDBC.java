@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
+import javax.xml.stream.events.Characters;
 import negocio.Doctor;
 import negocio.User;
 import util.JDBCUtil;
@@ -18,8 +19,8 @@ import util.JDBCUtil;
  */
 public class RepUserJDBC implements IRepUser {
     
-    private static final String insert = "INSERT INTO User(name, email, password, "
-            + "crm, type) VALUES ( ?, ?, ?, ?, ?)";
+    private static final String insert = "INSERT INTO \"users\" (\"name\", email, \"password\", "
+            + "crm, \"type\") VALUES ( ?, ?, ?, ?, ?)";
     private static final int CLIENT = 0;
     private static final int DOCTOR = 1;
 
@@ -33,14 +34,15 @@ public class RepUserJDBC implements IRepUser {
             
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
-            stmt.setString(3, Arrays.toString(user.getPassword()));
-            stmt.setString(4, ((user instanceof Doctor) ? ((Doctor)user).getCrm() : null));
+            stmt.setString(3, "biscoito");
+            stmt.setString(4, ((user instanceof Doctor) ? ((Doctor)user).getCrm() : ""));
             stmt.setInt(5, ((user instanceof Doctor) ? DOCTOR : CLIENT));
             
             stmt.executeUpdate();
             JDBCUtil.commitTransaction();
             
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new AcessoRepositorioException(ex.getMessage());
         } finally {
             JDBCUtil.fechaRecursos(stmt, null);

@@ -26,6 +26,8 @@ public class ClientsUI extends javax.swing.JFrame {
     public ClientsUI() {
         super("Novo Cliente");
         initComponents();
+        
+        this.setLocationByPlatform(true);
     }
 
     /** This method is called from within the constructor to

@@ -1,8 +1,5 @@
 /*
- * Grupo: Miguel Amaral
- *        Ethan Rafael
- *        Diego Henrique
- *        Davyson Costa
+ * Grupo: Miguel Amaral Ethan Rafael Diego Henrique Davyson Costa
  */
 
 /*
@@ -10,12 +7,9 @@
  *
  * Created on 03/11/2011, 17:41:49
  */
-
 package gui;
 
 import exception.AcessoRepositorioException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import negocio.Client;
 import negocio.Fachada;
@@ -26,8 +20,11 @@ import negocio.Fachada;
  */
 public class ClientsUI extends javax.swing.JFrame {
 
-    /** Creates new form UsersUI */
+    /**
+     * Creates new form UsersUI
+     */
     public ClientsUI() {
+        super("Novo Cliente");
         initComponents();
     }
 
@@ -120,41 +117,11 @@ public class ClientsUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        
-        this.dispose();
-       
-        
+        this.sair();
     }//GEN-LAST:event_btSairActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-       if(this.tfName != null && this.tfEmail != null && this.pfPassword != null){ 
-       
-        try {
-            Client c = new Client();
-            c.setName(this.tfName.getText());
-            c.setEmail(this.tfEmail.getText());
-            c.setPassword(this.pfPassword.getPassword());
-         
-            Fachada.getFachada().insert(c);
-            
-        } catch (AcessoRepositorioException ex) {
-            Logger.getLogger(ClientsUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        this.dispose();
-        
-       
-        
-       }
-       
-       else{
-        JOptionPane.showMessageDialog(rootPane, "Falta preencher algum dos campos!");
-       }
-       
-       
-       
-        
-        
+        this.salvar();
     }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
@@ -162,12 +129,12 @@ public class ClientsUI extends javax.swing.JFrame {
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new ClientsUI().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
@@ -179,4 +146,33 @@ public class ClientsUI extends javax.swing.JFrame {
     private javax.swing.JTextField tfName;
     // End of variables declaration//GEN-END:variables
 
+    private void sair() {
+        this.dispose();
+    }
+
+    private void salvar() {
+        if (this.tfName.getText().trim().equals("") &&
+                this.tfEmail.getText().trim().equals("") &&
+                this.pfPassword.getPassword().length == 0) {
+
+            try {
+                Client c = new Client();
+                c.setName(this.tfName.getText());
+                c.setEmail(this.tfEmail.getText());
+                c.setPassword(this.pfPassword.getPassword());
+
+                Fachada.getFachada().insert(c);
+                
+                JOptionPane.showMessageDialog(this, "Cliente inserido com sucesso!",
+                        "Concluído", JOptionPane.INFORMATION_MESSAGE);
+                
+                this.sair();
+            } catch (AcessoRepositorioException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Falta preencher algum dos campos!",
+                    "Preencha os campos", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

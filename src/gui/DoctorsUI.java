@@ -1,8 +1,5 @@
 /*
- * Grupo: Miguel Amaral
- *        Ethan Rafael
- *        Diego Henrique
- *        Davyson Costa
+ * Grupo: Miguel Amaral Ethan Rafael Diego Henrique Davyson Costa
  */
 
 /*
@@ -10,7 +7,6 @@
  *
  * Created on 03/11/2011, 17:55:19
  */
-
 package gui;
 
 import exception.AcessoRepositorioException;
@@ -19,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import negocio.Doctor;
 import negocio.Fachada;
 import negocio.Service;
@@ -30,7 +25,9 @@ import negocio.Service;
  */
 public class DoctorsUI extends javax.swing.JFrame {
 
-    /** Creates new form DoctorsUI */
+    /**
+     * Creates new form DoctorsUI
+     */
     public DoctorsUI() {
         initComponents();
         initComponets2();
@@ -83,12 +80,6 @@ public class DoctorsUI extends javax.swing.JFrame {
 
         jLabel1.setText("CRM:");
 
-        tfName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNameActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Nome:");
 
         jLabel3.setText("E-mail:");
@@ -115,10 +106,10 @@ public class DoctorsUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 10));
         jLabel5.setText("Serviços Disponíveis:");
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 10));
         jLabel6.setText("Serviços Deste Médico:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -175,12 +166,12 @@ public class DoctorsUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btSair))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfName))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel1))
@@ -192,12 +183,11 @@ public class DoctorsUI extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel4)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pfPassword))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, 0)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -238,47 +228,11 @@ public class DoctorsUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btRemoveServiceActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-       
-        this.dispose();
-        
-        
-        
+        this.sair();
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void tfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNameActionPerformed
-
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        
-       if(this.tfName != null && this.tfEmail != null && this.tfCrm != null && this.pfPassword != null){ 
-        try {
-            Doctor d = new Doctor();
-            d.setCrm(this.tfCrm.getText());
-            d.setName(this.tfName.getText());
-            d.setEmail(this.tfEmail.getText());
-            d.setPassword(this.pfPassword.getPassword());
-            d.setServices(selectedServices);
-           
-            
-            
-            Fachada.getFachada().insert(d);
-        
-        } catch (AcessoRepositorioException ex) {
-            Logger.getLogger(DoctorsUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        this.dispose();
-        
-        
-       }
-       
-       else{
-        JOptionPane.showMessageDialog(rootPane, "Falta preencher algum dos campos!");
-       
-       }
-        
-        
+        this.salvar();
     }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
@@ -286,12 +240,12 @@ public class DoctorsUI extends javax.swing.JFrame {
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new DoctorsUI().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddService;
     private javax.swing.JButton btRemoveService;
@@ -313,19 +267,18 @@ public class DoctorsUI extends javax.swing.JFrame {
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfName;
     // End of variables declaration//GEN-END:variables
-
     private List<Service> allServices;
     private List<Service> selectedServices;
-    
+
     private void initComponets2() {
         try {
             this.allServices = Fachada.getFachada().getAllServices();
             DefaultListModel model = (DefaultListModel) listAllServices.getModel();
-            
-            for (Service s : allServices){
+
+            for (Service s : allServices) {
                 model.addElement(s.getName());
             }
-            
+
         } catch (AcessoRepositorioException ex) {
             ex.printStackTrace();
         }
@@ -335,32 +288,65 @@ public class DoctorsUI extends javax.swing.JFrame {
         int row[] = listAllServices.getSelectedIndices();
         DefaultListModel listAll = (DefaultListModel) listAllServices.getModel();
         DefaultListModel listSelected = (DefaultListModel) listSelectedServices.getModel();
-        
-        for (int i = 0; i < row.length; i++){
-            listAll.remove(row[i]-i);
-            
+
+        for (int i = 0; i < row.length; i++) {
+            listAll.remove(row[i] - i);
+
             selectedServices.add(allServices.get(i));
             allServices.remove(i);
-            
+
             listSelected.addElement(selectedServices.get(i));
         }
-        
+
     }
-    
+
     private void removeService() {
         int row[] = listAllServices.getSelectedIndices();
         DefaultListModel listAll = (DefaultListModel) listAllServices.getModel();
         DefaultListModel listSelected = (DefaultListModel) listSelectedServices.getModel();
-        
-        for(int i = 0; i < row.length; i++){
-           listSelected.remove(i);
-           
-           allServices.add(selectedServices.get(i));
-           selectedServices.remove(i);
-           
-           listAll.addElement(allServices.get(i));
-           
-        }   
+
+        for (int i = 0; i < row.length; i++) {
+            listSelected.remove(i);
+
+            allServices.add(selectedServices.get(i));
+            selectedServices.remove(i);
+
+            listAll.addElement(allServices.get(i));
+
+        }
     }
 
+    private void sair() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private void salvar() {
+        if (this.tfName.getText().trim().equals("") &&
+                this.tfEmail.getText().trim().equals("") &&
+                this.pfPassword.getPassword().length == 0) {
+            
+            try {
+                Doctor d = new Doctor();
+                
+                d.setCrm(this.tfCrm.getText());
+                d.setName(this.tfName.getText());
+                d.setEmail(this.tfEmail.getText());
+                d.setPassword(this.pfPassword.getPassword());
+                d.setServices(selectedServices);
+
+                Fachada.getFachada().insert(d);
+                
+                JOptionPane.showMessageDialog(this, "Cliente inserido com sucesso!",
+                        "Concluído", JOptionPane.INFORMATION_MESSAGE);
+
+                this.sair();
+            } catch (AcessoRepositorioException ex) {
+                Logger.getLogger(DoctorsUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Falta preencher algum dos campos!",
+                    "Preencha os campos", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

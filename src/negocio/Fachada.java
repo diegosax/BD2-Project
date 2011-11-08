@@ -6,9 +6,7 @@
  */
 package negocio;
 
-import dados.IRepMeeting;
-import dados.IRepService;
-import dados.IRepUser;
+import dados.*;
 import exception.AcessoRepositorioException;
 import java.util.List;
 
@@ -26,9 +24,9 @@ public class Fachada {
     
     private Fachada(){
         // TODO inicializar atributos
-        IRepUser repUsers = null;
-        IRepMeeting repMeetings = null;
-        IRepService repServices = null;
+        IRepUser repUsers = new RepUserJDBC();
+        IRepMeeting repMeetings = new RepMeetingJDBC();
+        IRepService repServices = new RepServiceJDBC();
         
         this.meetings = new MeetingController(repMeetings);
         this.users = new UserController(repUsers);

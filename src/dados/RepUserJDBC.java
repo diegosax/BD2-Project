@@ -10,10 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import negocio.Client;
-import negocio.Doctor;
-import negocio.Service;
-import negocio.User;
+import negocio.*;
 import util.JDBCUtil;
 
 /**
@@ -95,27 +92,28 @@ public class RepUserJDBC implements IRepUser {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            User s;
+            User u;
             stmt = JDBCUtil.getStatement();
             rs = stmt.executeQuery(getAll);
             int op = -1;
             while (rs.next()) {
                 op = rs.getInt("type");
                 if (op == DOCTOR){
-                    s = new Doctor();
+                    u = new Doctor();
                 } else {
-                    s = new Client();
+                    u = new Client();
                 }
 
-                s.setId(rs.getInt("id"));
-                s.setName(rs.getString("name"));
-                s.setPassword(rs.getString("password").toCharArray());
+                u.setId(rs.getInt("id"));
+                u.setName(rs.getString("name"));
+                u.setPassword(rs.getString("password").toCharArray());
                 
                 if (op == DOCTOR){
-                    ((Doctor)s).setCrm(rs.getString("crm"));
+                    ((Doctor)u).setCrm(rs.getString("crm"));
+                    ((Doctor)u).setServices(Fachada.getFachada().get((Doctor)u));
                 }
                 
-                services.add(s);
+                services.add(u);
             }
             
             return services;

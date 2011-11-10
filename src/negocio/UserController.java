@@ -8,6 +8,7 @@ package negocio;
 
 import dados.IRepUser;
 import exception.AcessoRepositorioException;
+import java.util.List;
 
 /**
  *
@@ -23,6 +24,10 @@ public class UserController {
     
     public void insert(User user) throws AcessoRepositorioException{
         this.users.insert(user);
+    }
+    
+    public List<User> getAll() throws AcessoRepositorioException{
+        return this.users.getAll();
     }
     
 }

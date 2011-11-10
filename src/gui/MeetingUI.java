@@ -4,10 +4,15 @@
  */
 package gui;
 
-import com.sun.org.apache.xerces.internal.impl.xs.opti.DefaultText;
+import exception.AcessoRepositorioException;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import negocio.*;
 
 /**
  *
@@ -52,6 +57,7 @@ public class MeetingUI extends javax.swing.JFrame {
         btSair = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
+        btAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,9 +96,10 @@ public class MeetingUI extends javax.swing.JFrame {
         });
 
         listServices.setModel(new DefaultListModel());
+        listServices.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(listServices);
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 10));
         jLabel3.setText("Especialidade:");
 
         jLabel4.setText("Observação:");
@@ -104,13 +111,36 @@ public class MeetingUI extends javax.swing.JFrame {
         jLabel5.setText("Cliente:");
 
         listDates.setModel(new DefaultListModel());
+        listDates.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(listDates);
 
         btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
         btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+
+        btAtualizar.setText("Atualizar");
+        btAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAtualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,21 +165,23 @@ public class MeetingUI extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panelData1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane3))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btSair)))
+                        .addComponent(btSair))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(panelData1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane3))
+                            .addComponent(btAtualizar))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -179,6 +211,8 @@ public class MeetingUI extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btSair)
@@ -201,6 +235,22 @@ public class MeetingUI extends javax.swing.JFrame {
     private void cbDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDoctorActionPerformed
         this.preencherServicesList();
     }//GEN-LAST:event_cbDoctorActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        this.sair();
+    }//GEN-LAST:event_btSairActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.cancelar();
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        this.salvar();
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
+        this.atualizar();
+    }//GEN-LAST:event_btAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,6 +294,7 @@ public class MeetingUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAtualizar;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btNewClient;
     private javax.swing.JButton btNewDoctor;
@@ -266,6 +317,10 @@ public class MeetingUI extends javax.swing.JFrame {
     private javax.swing.JTextArea taNotes;
     // End of variables declaration//GEN-END:variables
 
+    List<Doctor> doctors;
+    List<Client> clients;
+    List<Service> services;
+                    
     private void initComponents2() {
         panelData1.getDatePicker().addActionListener(new ActionListener() {
 
@@ -279,29 +334,132 @@ public class MeetingUI extends javax.swing.JFrame {
     }
     
     private void novoCliente() {
-        ClientsUI client = new ClientsUI();
-        client.setVisible(true);
+        EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                ClientsUI client = new ClientsUI();
+                client.setVisible(true);
+            }
+        });
     }
 
     private void newDoctor() {
-        DoctorsUI doctor = new DoctorsUI();
-        doctor.setVisible(true);
+        EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                DoctorsUI doctor = new DoctorsUI();
+                doctor.setVisible(true);
+            }
+        });
     }
 
     private void preencherComboBoxDoctor() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        try {
+            List<User> users = Fachada.getFachada().getAllUsers();
+            doctors = new ArrayList<Doctor>();
+            
+            cbDoctor.removeAllItems();
+            
+            for (User u : users){
+                if (u instanceof Doctor){
+                    doctors.add((Doctor)u);
+                    
+                    cbDoctor.addItem(u.getName());
+                }
+            }
+            
+        } catch (AcessoRepositorioException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void preencherComboBoxClients() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        try {
+            List<User> users = Fachada.getFachada().getAllUsers();
+            clients = new ArrayList<Client>();
+            
+            cbClients.removeAllItems();
+            
+            for (User u : users){
+                if (u instanceof Client){
+                    clients.add((Client)u);
+                    
+                    cbClients.addItem(u.getName());
+                }
+            }
+            
+        } catch (AcessoRepositorioException ex) {
+            ex.printStackTrace();
+        }
     }
     
     private void preencherHorariosDisponiveis(){
-        
+        // TODO
     }
 
     private void preencherServicesList() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        try {
+            Doctor d = doctors.get(cbDoctor.getSelectedIndex());
+            services = Fachada.getFachada().get(d);
+            DefaultListModel model = (DefaultListModel) listServices.getModel();
+            
+            model.removeAllElements();
+            
+            for (Service s : services){
+                model.addElement(s.getName());
+            }
+        } catch (AcessoRepositorioException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void sair() {
+        this.dispose();
+    }
+
+    private void cancelar() {
+        cbDoctor.setSelectedIndex(0);
+        cbClients.setSelectedIndex(0);
+        taNotes.setText("");
+        ((DefaultListModel)listDates.getModel()).removeAllElements();
+        ((DefaultListModel)listDates.getModel()).removeAllElements();
+    }
+
+    private void salvar() {
+        int selectedDoctor = cbDoctor.getSelectedIndex();
+        int selectedClient = cbClients.getSelectedIndex();
+        int selectedService[] = listServices.getSelectedIndices();
+        int selectedDate[] = listDates.getSelectedIndices();
+        
+        if (selectedDoctor == -1 || selectedClient == -1 ||
+                selectedService.length != 0 || selectedDate.length != 1){
+            JOptionPane.showMessageDialog(this, "Algum campo inválido",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                Meeting m = new Meeting();
+                
+                m.setClient(clients.get(selectedClient));
+                m.setDoctor(doctors.get(selectedDoctor));
+                m.setNotes(taNotes.getText().trim());
+                m.setScheduledDate(panelData1.getCalendar());
+                m.setService(services.get(selectedService[0]));
+                // TODO a hora selecionada?
+                
+                Fachada.getFachada().insert(m);
+                
+                JOptionPane.showMessageDialog(this, "Inserido com sucesso!",
+                    "Concluído!", JOptionPane.INFORMATION_MESSAGE);
+            } catch (AcessoRepositorioException ex) {
+                ex.printStackTrace();
+            } 
+        }
+    }
+
+    private void atualizar() {
+        this.preencherComboBoxDoctor();
+        this.preencherComboBoxClients();
+        this.preencherHorariosDisponiveis();
     }
         
 

@@ -19,7 +19,6 @@ public class JDBCUtil {
 
     static {
         try {
-            System.out.println("static metodo");
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

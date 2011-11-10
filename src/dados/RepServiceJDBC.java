@@ -22,6 +22,10 @@ public class RepServiceJDBC implements IRepService {
 
     private static final String insert = "INSERT INTO services(name) VALUES (?)";
     private static final String getAll = "SELECT * FROM services ORDER BY lower(name)";
+    private static final String getDoctorsServices =
+            "SELECT service_id FROM services_doctor WHERE doctor_id = ?";
+    private static final String getService =
+            "SELECT * FROM services WHERE id = ?";
 
     public void insert(Service service) throws AcessoRepositorioException {
         PreparedStatement stmt = null;
@@ -76,6 +80,67 @@ public class RepServiceJDBC implements IRepService {
     }
 
     public List<Service> get(Doctor d) throws AcessoRepositorioException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Service> services = new ArrayList<Service>();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            Service s;
+            stmt = JDBCUtil.getStatement(getDoctorsServices);
+            
+            stmt.setInt(1, d.getId());
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                s = this.get(rs.getInt("service_id"));
+                
+                services.add(s);
+            }
+            
+            return services;
+            
+        } catch (SQLException e) {
+            throw new AcessoRepositorioException(e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+                JDBCUtil.fechaRecursos(null, rs);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    private Service get(int id) throws AcessoRepositorioException{
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            Service s = null;
+            stmt = JDBCUtil.getStatement(getService);
+            
+            stmt.setInt(1, id);
+            
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                s = new Service();
+                s.setId(rs.getInt("id"));
+                s.setName(rs.getString("name"));
+            }
+            
+            return s;
+            
+        } catch (SQLException e) {
+            throw new AcessoRepositorioException(e.getMessage());
+        } finally {
+            try {
+                stmt.close();
+                JDBCUtil.fechaRecursos(null, rs);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

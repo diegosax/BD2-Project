@@ -30,4 +30,8 @@ public class ServiceController {
         return this.services.getAll();
     }
     
+    public List<Service> get(Doctor d) throws AcessoRepositorioException{
+        return this.services.get(d);
+    }
+    
 }

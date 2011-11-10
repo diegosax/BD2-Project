@@ -58,11 +58,11 @@ public class Fachada {
     public User getUser(int id) throws AcessoRepositorioException{
         return this.users.get(id);
     }
+    */
     
     public List<User> getAllUsers() throws AcessoRepositorioException{
         return this.users.getAll();
     }
-      */  
     /********* MEETINGS ***********/
     
     public void insert(Meeting meeting) throws AcessoRepositorioException, AcessoRepositorioException, AcessoRepositorioException, AcessoRepositorioException{
@@ -96,5 +96,10 @@ public class Fachada {
     public List<Service> getAllServices() throws AcessoRepositorioException{
         return this.services.getAll();
     }
+    
+    public List<Service> get(Doctor d) throws AcessoRepositorioException{
+        return this.services.get(d);
+    }
+            
     
 }

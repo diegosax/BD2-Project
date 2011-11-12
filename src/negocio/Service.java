@@ -7,6 +7,7 @@
 
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,9 +15,14 @@ import java.util.List;
  * @author aluno
  */
 public class Service {
+    
+    public Service(){
+        this.doctors = new ArrayList<Doctor>();
+    }
 
     private int id;
     private String name;
+    private int duration;
     private List<Doctor> doctors;
 
     public int getId() {
@@ -41,5 +47,13 @@ public class Service {
 
     public void setDoctors(List<Doctor> doctors) {
         this.doctors = doctors;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

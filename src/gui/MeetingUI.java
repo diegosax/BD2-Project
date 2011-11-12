@@ -9,6 +9,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -40,6 +41,7 @@ public class MeetingUI extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         btNewClient = new javax.swing.JButton();
         btNewDoctor = new javax.swing.JButton();
+        btNewService = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         panelData1 = new gui.PanelData();
@@ -84,6 +86,17 @@ public class MeetingUI extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btNewDoctor);
+
+        btNewService.setText("Novo Serviço");
+        btNewService.setFocusable(false);
+        btNewService.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btNewService.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btNewService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNewServiceActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btNewService);
 
         jLabel1.setText("Médico:");
 
@@ -252,6 +265,10 @@ public class MeetingUI extends javax.swing.JFrame {
         this.atualizar();
     }//GEN-LAST:event_btAtualizarActionPerformed
 
+    private void btNewServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewServiceActionPerformed
+        this.newService();
+    }//GEN-LAST:event_btNewServiceActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -298,6 +315,7 @@ public class MeetingUI extends javax.swing.JFrame {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btNewClient;
     private javax.swing.JButton btNewDoctor;
+    private javax.swing.JButton btNewService;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox cbClients;
@@ -399,14 +417,16 @@ public class MeetingUI extends javax.swing.JFrame {
 
     private void preencherServicesList() {
         try {
-            Doctor d = doctors.get(cbDoctor.getSelectedIndex());
-            services = Fachada.getFachada().get(d);
-            DefaultListModel model = (DefaultListModel) listServices.getModel();
-            
-            model.removeAllElements();
-            
-            for (Service s : services){
-                model.addElement(s.getName());
+            if (cbDoctor.getSelectedIndex() != -1){
+                Doctor d = doctors.get(cbDoctor.getSelectedIndex());
+                services = Fachada.getFachada().get(d);
+                DefaultListModel model = (DefaultListModel) listServices.getModel();
+
+                model.removeAllElements();
+
+                for (Service s : services){
+                    model.addElement(s.getName());
+                }
             }
         } catch (AcessoRepositorioException ex) {
             ex.printStackTrace();
@@ -460,6 +480,16 @@ public class MeetingUI extends javax.swing.JFrame {
         this.preencherComboBoxDoctor();
         this.preencherComboBoxClients();
         this.preencherHorariosDisponiveis();
+    }
+
+    private void newService() {
+        EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                ServiceUI service = new ServiceUI();
+                service.setVisible(true);
+            }
+        });
     }
         
 

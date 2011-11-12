@@ -61,6 +61,7 @@ public class RepServiceJDBC implements IRepService {
                 s = new Service();
                 s.setId(rs.getInt("id"));
                 s.setName(rs.getString("name"));
+                s.setDuration(rs.getInt("duration"));
                 
                 services.add(s);
             }
@@ -128,6 +129,7 @@ public class RepServiceJDBC implements IRepService {
                 s = new Service();
                 s.setId(rs.getInt("id"));
                 s.setName(rs.getString("name"));
+                s.setDuration(rs.getInt("duration"));
             }
             
             return s;
